@@ -1,0 +1,108 @@
+.auth-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    transition: transform 0.3s;
+}
+
+h2 {
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    position: relative; 
+}
+
+.toggle-button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, box-shadow 0.3s; /* Transition for shadow */
+}
+
+
+.toggle-button.login {
+    width: 85%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background: linear-gradient(to right, #e0e0e0, #f0f0f0);
+}
+
+/* Active state for Login button */
+.toggle-button.login.active {
+    background: linear-gradient(to right, #a445b2, #fa4299);
+    color: white; 
+    font-weight: bold;
+}
+
+/* Specific styles for Sign Up button */
+.toggle-button.signup {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background: linear-gradient(to right, #e0e0e0, #f0f0f0);
+
+}
+
+/* Active state for Sign Up button */
+.toggle-button.signup.active {
+    background: linear-gradient(to right, #a445b2, #fa4299);
+    color: white; 
+    font-weight: bold;
+}
+
+.card {
+    padding: 20px;
+    border-radius: 8px;
+
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.input-group input {
+    width: calc(100% - 20px); /* Adjust to account for padding */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    box-sizing: border-box; /* Ensures padding is included in width */
+}
+
+.input-group input:focus {
+    border-color: #fa4299; 
+}
+
+.submit-button {
+    width: 95%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background: linear-gradient(to right, #a445b2, #fa4299); /* Gradient background */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+.submit-button:hover {
+    background: linear-gradient(to right, #0056b3, #007bff); 
+}

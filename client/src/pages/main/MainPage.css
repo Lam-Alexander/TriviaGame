@@ -1,0 +1,107 @@
+/* MainPage.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    /* Flexbox for centering */
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    height: 100vh;
+    /* Full viewport height */
+    flex-direction: column;
+    /* Column layout */
+}
+
+.feedback-correct {
+    color: green;
+    font-weight: bold;
+}
+
+.feedback-wrong {
+    color: red;
+    font-weight: bold;
+}
+
+
+.header-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+}
+
+.question {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 20px 0;
+    text-align: center;
+    padding: 10px;
+    border: 2px solid #fa4299;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    /* width: 80%;                   */
+    align-items: center;
+}
+
+.answer-button {
+    flex: 0 0 45%;
+    /* Set width of buttons to occupy 45% of container */
+    padding: 15px;
+    /* Increase padding for better button size */
+    font-size: 1.2rem;
+    color: white;
+    background: linear-gradient(to right, #a445b2, #fa4299);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.answer-button:hover {
+    background: linear-gradient(to right, #0056b3, #007bff);
+}
+
+.answer-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.next-question-button {
+    display: block;
+    width: 80%;
+    /* Same width as answer buttons */
+    padding: 15px;
+    margin: 20px auto;
+    font-size: 1.2rem;
+    color: white;
+    background-color: #2196F3;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.next-question-button:hover {
+    background-color: #1976D2;
+}
+
+p {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+}
