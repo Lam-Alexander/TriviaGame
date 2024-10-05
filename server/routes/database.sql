@@ -8,7 +8,7 @@ CREATE TABLE questions (
 );
 
 
--- Dont use this haven't completmed login section
+-- Dont use this haven't completed login section
 
 -- CREATE TABLE players (
 --     id SERIAL PRIMARY KEY,

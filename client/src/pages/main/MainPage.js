@@ -7,10 +7,10 @@ const MainPage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [feedback, setFeedback] = useState('');
-  const [feedbackType, setFeedbackType] = useState(''); // New state for feedback type
+  const [feedbackType, setFeedbackType] = useState(''); 
   const [score, setScore] = useState(0);
   const [showNext, setShowNext] = useState(false);
-  const [answeredQuestions, setAnsweredQuestions] = useState(new Set()); // Track answered questions
+  const [answeredQuestions, setAnsweredQuestions] = useState(new Set()); 
 
   // Fetch questions from the server
   const fetchQuestions = async () => {

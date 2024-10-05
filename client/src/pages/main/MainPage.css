@@ -6,15 +6,11 @@ body {
     margin: 0;
     padding: 20px;
     display: flex;
-    /* Flexbox for centering */
     justify-content: center;
-    /* Center horizontally */
     align-items: center;
-    /* Center vertically */
     height: 100vh;
-    /* Full viewport height */
     flex-direction: column;
-    /* Column layout */
+
 }
 
 .feedback-correct {
@@ -54,15 +50,12 @@ body {
     justify-content: center;
     gap: 10px;
     margin-top: 20px;
-    /* width: 80%;                   */
     align-items: center;
 }
 
 .answer-button {
     flex: 0 0 45%;
-    /* Set width of buttons to occupy 45% of container */
     padding: 15px;
-    /* Increase padding for better button size */
     font-size: 1.2rem;
     color: white;
     background: linear-gradient(to right, #a445b2, #fa4299);
@@ -84,7 +77,6 @@ body {
 .next-question-button {
     display: block;
     width: 80%;
-    /* Same width as answer buttons */
     padding: 15px;
     margin: 20px auto;
     font-size: 1.2rem;
