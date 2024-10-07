@@ -6,14 +6,24 @@ const Login = () => {
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
+    const [username, setUsername] = useState(''); // Change this from name to username
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState(''); // State for error message
+    const [successMessage, setSuccessMessage] = useState(''); // State for success message
     const navigate = useNavigate(); // Initialize useNavigate
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrorMessage(''); // Reset error message before each submission
+        setSuccessMessage(''); // Reset success message before each submission
+
+        if (!isLogin && password !== confirmPassword) {
+            setErrorMessage('Passwords do not match'); // Set error message
+            return; 
+        }
+
         const url = isLogin ? 'http://localhost:5001/api/login' : 'http://localhost:5001/api/signup';
-        const data = isLogin ? { email, password } : { name, email, password };
+        const data = isLogin ? { email, password } : { username, email, password }; 
 
         try {
             const response = await fetch(url, {
@@ -25,18 +35,40 @@ const Login = () => {
             });
 
             if (!response.ok) {
-                throw new Error(`Error: ${response.status}`);
+                const errorData = await response.json(); // Use .json() to read JSON responses
+                setErrorMessage(errorData.message || 'An error occurred'); // Extract and set error message
+                setTimeout(() => {
+                    setErrorMessage(''); // Clear error message after 2 seconds
+                }, 2000);
+                return; // Exit the function
             }
 
             const result = await response.json();
-            console.log(result); // Handle successful response (e.g., save token, redirect user)
+            console.log(result);
 
-            // Redirect to the main page of the trivia game
-            navigate('/main'); // Adjust the path according to your routing setup
+            // If it's a signup, show success message
+            if (!isLogin) {
+                setSuccessMessage('Sign up successful! You can now log in.'); // Set success message
+                setTimeout(() => {
+                    setSuccessMessage(''); // Clear success message after 2 seconds
+                }, 2000);
+                return; // Prevent navigation for now, just show success message
+            }
+
+            // Store the JWT token in local storage for login
+            if (result.token) {
+                localStorage.setItem('token', result.token); // Store token
+                console.log('Token stored in local storage:', result.token);
+            }
+
+            navigate('/main'); // Redirect to the main page
 
         } catch (error) {
             console.error('Error:', error);
-            // Handle error (e.g., show notification)
+            setErrorMessage(`An error occurred: ${error.message}`); // Set error message
+            setTimeout(() => {
+                setErrorMessage(''); // Clear error message after 2 seconds
+            }, 2000);
         }
     };
 
@@ -45,13 +77,13 @@ const Login = () => {
             <div className="button-container">
                 <button
                     onClick={() => setIsLogin(true)}
-                    className={`toggle-button login ${isLogin ? 'active' : ''}`} // Add login class
+                    className={`toggle-button login ${isLogin ? 'active' : ''}`}
                 >
                     Login
                 </button>
                 <button
                     onClick={() => setIsLogin(false)}
-                    className={`toggle-button signup ${!isLogin ? 'active' : ''}`} // Add signup class
+                    className={`toggle-button signup ${!isLogin ? 'active' : ''}`}
                 >
                     Sign Up
                 </button>
@@ -62,13 +94,13 @@ const Login = () => {
                 <form className="form" onSubmit={handleSubmit}>
                     {!isLogin && (
                         <div className="input-group">
-                            <label htmlFor="name">Name</label>
+                            <label htmlFor="username">Username</label>
                             <input
-                                id="name"
+                                id="username"
                                 type="text"
-                                placeholder="Name"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                placeholder="Username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
                                 required={!isLogin}
                             />
                         </div>
@@ -105,6 +137,12 @@ const Login = () => {
                                 required
                             />
                         </div>
+                    )}
+                    {errorMessage && (
+                        <p className="error-message">{errorMessage}</p> // Display error message
+                    )}
+                    {successMessage && (
+                        <p className="success-message">{successMessage}</p> // Display success message
                     )}
                     <button type="submit" className="submit-button">
                         {isLogin ? 'Log in' : 'Sign up'}

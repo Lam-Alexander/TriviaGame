@@ -106,3 +106,16 @@ h2 {
 .submit-button:hover {
     background: linear-gradient(to right, #0056b3, #007bff); 
 }
+
+.success-message {
+    color: green; /* Change this color as needed */
+    margin-top: 10px;
+    font-size: small;
+}
+
+.error-message {
+    color: red; /* Change this color as needed */
+    margin-top: 10px;
+    font-size: small;
+}
+
