@@ -48,6 +48,32 @@ const signup = async (req, res) => {
     }
   };
 
+  // Update an existing question
+const updateQuestion = async (req, res) => {
+  const { id } = req.params;
+  const { question_text, correct_answer, wrong_answers } = req.body;
+
+  try {
+    // Check if the question exists
+    const existingQuestion = await pool.query("SELECT * FROM questions WHERE id = $1", [id]);
+    if (existingQuestion.rows.length === 0) {
+      return res.status(404).json({ message: "Question not found." });
+    }
+
+    // Update the question in the database
+    const updatedQuestion = await pool.query(
+      "UPDATE questions SET question_text = $1, correct_answer = $2, wrong_answers = $3::text[] WHERE id = $4 RETURNING *",
+      [question_text, correct_answer, wrong_answers, id]
+    );
+
+    res.status(200).json(updatedQuestion.rows[0]); // Return the updated question
+  } catch (error) {
+    console.error("Error updating question:", error);
+    res.status(500).json({ message: "Error updating question." });
+  }
+};
+
+
 // Function to handle user login
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -165,4 +191,5 @@ module.exports = {
   authenticate,
   trackScore,
   getLeaderboard,
+  updateQuestion, 
 };

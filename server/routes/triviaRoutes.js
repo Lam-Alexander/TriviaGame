@@ -7,7 +7,8 @@ const {
     login, 
     authenticate, 
     trackScore, 
-    getLeaderboard 
+    getLeaderboard,
+    updateQuestion 
 } = require('../controllers/triviaController');
 
 // Route to get all questions
@@ -27,5 +28,8 @@ router.post('/score', authenticate, trackScore); // Must be authenticated to tra
 
 // Route to get the leaderboard
 router.get('/leaderboard', getLeaderboard); // No authentication needed to view the leaderboard
+
+// Route to update Question by ID
+router.put('/questions/:id', authenticate, updateQuestion);
 
 module.exports = router;
