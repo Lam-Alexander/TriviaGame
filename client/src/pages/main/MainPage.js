@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // For API calls
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './MainPage.css';
 
 const MainPage = () => {
@@ -11,11 +12,26 @@ const MainPage = () => {
   const [score, setScore] = useState(0);
   const [showNext, setShowNext] = useState(false);
   const [answeredQuestions, setAnsweredQuestions] = useState(new Set()); 
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  // Check for JWT token
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/'); // Redirect to login page if no token
+    } else {
+      fetchQuestions(); // Fetch questions if token is available
+    }
+  }, [navigate]);
 
   // Fetch questions from the server
   const fetchQuestions = async () => {
     try {
-      const response = await axios.get('http://localhost:5001/api/questions');
+      const response = await axios.get('http://localhost:5001/api/questions', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`, // Add JWT token in the request headers
+        },
+      });
       const shuffledQuestions = shuffleArray(response.data);
       setQuestions(shuffledQuestions);
     } catch (error) {
@@ -26,10 +42,6 @@ const MainPage = () => {
   const shuffleArray = (array) => {
     return array.sort(() => Math.random() - 0.5);
   };
-
-  useEffect(() => {
-    fetchQuestions();
-  }, []);
 
   const handleAnswerSelection = (answer) => {
     setSelectedAnswer(answer);
